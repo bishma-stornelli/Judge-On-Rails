@@ -1,4 +1,6 @@
 OJOR::Application.routes.draw do
+  resources :problems
+
   root to: "home#index"
   
   resources :users
