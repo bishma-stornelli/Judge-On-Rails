@@ -1,4 +1,8 @@
 OJOR::Application.routes.draw do
+  get "sessions/signin"
+
+  get "sessions/signout"
+
   resources :users
 
   # The priority is based upon order of creation:
