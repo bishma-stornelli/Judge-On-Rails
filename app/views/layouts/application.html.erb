@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>OJOR</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+    <head>
+        <title>OJOR</title>
+        <%= stylesheet_link_tag    "application", :media => "all" %>
+        <%= javascript_include_tag "application" %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
 
-<%= yield %>
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+            <%= value %>
+        </div>
+        <% end %>
 
-</body>
+        <%= yield %>
+
+    </body>
 </html>
