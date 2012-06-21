@@ -1,9 +1,12 @@
 OJOR::Application.routes.draw do
-  get "sessions/signin"
-
-  get "sessions/signout"
-
   resources :users
+  # To add helpers method: sessions_path, signin_path and signout_path
+  resources :sessions, only: [:new, :create, :destroy]
+
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
