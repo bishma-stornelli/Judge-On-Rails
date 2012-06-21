@@ -1,6 +1,9 @@
 class Problem < ActiveRecord::Base
   attr_accessible :code, :description, :input_format, :name, :output_format
   
+  has_many :marked_problems
+  has_many :users, through: :marked_problems
+  
   before_validation do |problem|
     if !problem.code
       begin

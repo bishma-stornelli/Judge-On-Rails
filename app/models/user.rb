@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :email_confirmation, :password, :password_confirmation, :password_digest, :username
 
+  has_many :marked_problems
+  has_many :problems, through: :marked_problems
   
   # Validations for username
   validates :username, presence: true, uniqueness: true
