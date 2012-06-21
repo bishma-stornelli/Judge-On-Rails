@@ -1,4 +1,6 @@
 OJOR::Application.routes.draw do
+  get "home/index"
+
   resources :users
   # To add helpers method: sessions_path, signin_path and signout_path
   resources :sessions, only: [:new, :create, :destroy]
