@@ -1,29 +1,35 @@
-<h1>Listing problems</h1>
+<h1>Problems List</h1>
 
 <table>
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Input format</th>
-    <th>Output format</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+        <th>ID</th>
+        <% if signed_in?  %>
+        <th>S</th>
+        <% end %>
+        <th>Name</th>
+        <th>Code</th>
+    </tr>
 
-<% @problems.each do |problem| %>
-  <tr>
-    <td><%= problem.code %></td>
-    <td><%= problem.name %></td>
-    <td><%= problem.description %></td>
-    <td><%= problem.input_format %></td>
-    <td><%= problem.output_format %></td>
-    <td><%= link_to 'Show', problem %></td>
-    <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
-    <td><%= link_to 'Destroy', problem, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+    <% @problems.each do |problem| %>
+    <tr>
+        <td><%= problem.id %></td>
+        <% if signed_in? %>
+            <td id="problem_<%= problem.id%>_status"><% if has_marked? problem %>
+                    <%= problem_status problem %>
+                <% else %>
+                    <%= form_for( :marked_problems , 
+                        url: marked_problems_path,
+                        remote: true) do |f| %>
+                        <%= f.hidden_field :problem_id , value: problem.id %>
+                        <%= f.submit "Mark" %>
+                    <% end %>
+                <% end %>
+            </td>
+        <% end %>
+        <td><%= link_to problem.name , problem %></td>
+        <td><%= problem.code %></td>
+    </tr>
+    <% end %>
 </table>
 
 <br />

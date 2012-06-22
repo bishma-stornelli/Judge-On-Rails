@@ -4,15 +4,17 @@
         <title>OJOR</title>
         <%= stylesheet_link_tag    "application", :media => "all" %>
         <%= javascript_include_tag "application" %>
+        <%= javascript_include_tag :defaults %>
         <%= csrf_meta_tags %>
     </head>
     <body>
-
-        <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>">
-            <%= value %>
+        <div class="alert">
+            <% flash.each do |key, value| %>
+            <div class="alert-<%= key %>">
+                <%= value %>
+            </div>
+            <% end %>
         </div>
-        <% end %>
 
         <%= yield %>
 

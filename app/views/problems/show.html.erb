@@ -25,6 +25,19 @@
   <%= @problem.output_format %>
 </p>
 
+<% if signed_in? %>
+    <div id="problem_status">
+        <% if has_marked? @problem %>
+            <p><b>Status:</b>
+                <span id="problem_<%= @problem.id %>_status"><%= problem_status @problem %></span>
+            </p>
+            <%= form_for(:marked_problem, url: marked_problem_path(@problem.id), remote: true, method: :put) do |f| %>
+                <%= f.submit "Solve" %>
+            <% end %>
+        <% else %>
+            Link to create
+        <% end %>
+    </div>
+<% end %>
 
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
 <%= link_to 'Back', problems_path %>

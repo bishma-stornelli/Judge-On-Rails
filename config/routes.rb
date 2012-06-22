@@ -1,4 +1,5 @@
 OJOR::Application.routes.draw do
+  get "marked_problems", to: 'marked_problems#index'
   resources :problems
 
   root to: "home#index"
@@ -6,6 +7,8 @@ OJOR::Application.routes.draw do
   resources :users
   # To add helpers method: sessions_path, signin_path and signout_path
   resources :sessions, only: [:new, :create, :destroy]
+  #
+  resources :marked_problems, only: [:create, :update, :edit]
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

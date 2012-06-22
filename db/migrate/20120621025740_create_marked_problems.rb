@@ -7,5 +7,9 @@ class CreateMarkedProblems < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :marked_problems, :user_id
+    add_index :marked_problems, :problem_id
+    add_index :marked_problems, [:user_id, :problem_id], uniqueness: true
   end
 end

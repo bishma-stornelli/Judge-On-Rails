@@ -1,0 +1,5 @@
+$("#problem_<%= @marked_problem.problem.id %>_status").html("<%= @marked_problem.get_status_display %>");
+
+<% flash.each do |key,value| %>
+$(".alert").html("<%= value %>");
+<% end %>
