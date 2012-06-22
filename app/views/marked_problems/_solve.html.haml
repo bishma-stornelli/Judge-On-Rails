@@ -1,0 +1,6 @@
+= form_for(:marked_problem, url: marked_problem_path(@problem.id), method: :put) do |f|
+  %p Submit your solution here:
+  = f.file_field :solution
+  %br
+  = f.hidden_field "problem_id", value: @problem.id
+  = f.submit "Solve"
