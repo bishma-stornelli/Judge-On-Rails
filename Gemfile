@@ -53,3 +53,6 @@ gem "therubyracer"
 # For roles. Source: https://github.com/ryanb/cancan
 gem 'cancan'
 
+# For easy upload files
+gem 'paperclip'
+

@@ -58,5 +58,12 @@ module OJOR
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    # Setting where to store files using paperclip
+    config.paperclip_defaults = {
+      :storage => :fog, 
+      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, 
+      :fog_directory => "", 
+      :fog_host => "localhost:3000"}
   end
 end

@@ -26,7 +26,7 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
     if user && user.admin?
-      can :create, Problem
+      can [:create, :update, :delete] , Problem
     end
     if user
       can [:create,:read,:update], MarkedProblem

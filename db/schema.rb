@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622144938) do
+ActiveRecord::Schema.define(:version => 20120622174435) do
 
   create_table "marked_problems", :force => true do |t|
     t.string   "status"
@@ -31,8 +31,13 @@ ActiveRecord::Schema.define(:version => 20120622144938) do
     t.text     "description"
     t.text     "input_format"
     t.text     "output_format"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "solution_file"
+    t.string   "solution_file_file_name"
+    t.string   "solution_file_content_type"
+    t.integer  "solution_file_file_size"
+    t.datetime "solution_file_updated_at"
   end
 
   create_table "users", :force => true do |t|

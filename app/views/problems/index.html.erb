@@ -11,23 +11,20 @@
     </tr>
 
     <% @problems.each do |problem| %>
-    <tr>
-        <td><%= problem.id %></td>
-        <% if signed_in? %>
-        <td id="problem_<%= problem.id%>_status"><% if has_marked? problem %>
-        <%= problem_status problem %>
-        <% else %>
-        <%= form_for( :marked_problems ,
-        url: marked_problems_path,
-        remote: true) do |f| %>
-        <%= f.hidden_field :problem_id , value: problem.id %>
-        <%= f.submit "Mark" %>
-        <% end %>
-        <% end %> </td>
-        <% end %>
-        <td><%= link_to problem.name , problem %></td>
-        <td><%= problem.code %></td>
-    </tr>
+        <tr>
+            <td><%= problem.id %></td>
+            <% if signed_in? %>
+                <td id="problem_<%= problem.id%>_status">
+                    <% if has_marked? problem %>
+                        <%= problem_status_display problem %>
+                    <% else %>
+                        <%= render 'marked_problems/mark' , problem: problem %>
+                    <% end %> 
+                </td>
+            <% end %>
+            <td><%= link_to problem.name , problem %></td>
+            <td><%= problem.code %></td>
+        </tr>
     <% end %>
 </table>
 

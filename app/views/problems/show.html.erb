@@ -29,13 +29,15 @@
     <div id="problem_status">
         <% if has_marked? @problem %>
             <p><b>Status:</b>
-                <span id="problem_<%= @problem.id %>_status"><%= problem_status @problem %></span>
+                <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
             </p>
-            <%= form_for(:marked_problem, url: marked_problem_path(@problem.id), remote: true, method: :put) do |f| %>
-                <%= f.submit "Solve" %>
+            <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
+                <%= form_for(:marked_problem, url: marked_problem_path(@problem.id), remote: true, method: :put) do |f| %>
+                    <%= f.submit "Solve" %>
+                <% end %>
             <% end %>
         <% else %>
-            Link to create
+            <%= render 'marked_problems/mark' , problem: @problem %>
         <% end %>
     </div>
 <% end %>

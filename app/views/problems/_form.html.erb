@@ -1,4 +1,4 @@
-<%= form_for(@problem) do |f| %>
+<%= form_for(@problem, :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 
   <div class="field">
@@ -16,6 +16,10 @@
   <div class="field">
     <%= f.label :output_format %><br />
     <%= f.text_area :output_format %>
+  </div>
+  <div class="field">
+    <%= f.label :solution_file %><br />
+    <%= f.file_field :solution_file %>
   </div>
   <div class="actions">
     <%= f.submit %>

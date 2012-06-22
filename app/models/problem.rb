@@ -1,6 +1,7 @@
+require 'paperclip'
 class Problem < ActiveRecord::Base
-  attr_accessible :code, :description, :input_format, :name, :output_format
-  
+  attr_accessible :code, :description, :input_format, :name, :output_format, :solution_file
+  has_attached_file :solution_file
   
   before_validation do |problem|
     if !problem.code
@@ -15,5 +16,5 @@ class Problem < ActiveRecord::Base
   validates :description, presence: true, length: { minimum: 20 }
   validates :input_format, presence: true, length: { minimum: 20 }
   validates :output_format, presence: true, length: { minimum: 20 }
-  
+
 end
