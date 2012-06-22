@@ -50,3 +50,6 @@ gem 'haml'
 gem "execjs"
 gem "therubyracer"
 
+# For roles. Source: https://github.com/ryanb/cancan
+gem 'cancan'
+

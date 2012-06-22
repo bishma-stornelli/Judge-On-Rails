@@ -1,5 +1,8 @@
 
 class ProblemsController < ApplicationController
+  # Limiting permissions using the gem cancan
+  load_and_authorize_resource except: [:index, :show]
+  
   # GET /problems
   # GET /problems.json
   def index

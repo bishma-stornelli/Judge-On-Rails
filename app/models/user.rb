@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :password_digest, :username, :problems
+  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :password_digest, :username, :problems, :admin
 
+  # Relationships with other entities
   has_many :marked_problems
   has_many :problems, through: :marked_problems
   
@@ -13,4 +14,9 @@ class User < ActiveRecord::Base
   
   # Validations for password
   has_secure_password
+  
+  # auxilary methods
+  def admin?
+    self.admin
+  end
 end

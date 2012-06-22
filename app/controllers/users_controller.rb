@@ -1,5 +1,8 @@
 
 class UsersController < ApplicationController
+  # Limiting functionality to non-admin users
+  load_and_authorize_resource except: [ :new, :create]
+  
   # GET /users
   # GET /users.json
   def index
