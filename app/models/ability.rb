@@ -27,10 +27,11 @@ class Ability
     
     if user && user.admin?
       can [:create, :update, :delete] , Problem
+      can :manage, User
     end
     if user
       can [:create,:read,:update], MarkedProblem
-      can [:show, :edit] , User, id: user.id
+      can [:show, :update] , User, id: user.id
     end
   end
 end

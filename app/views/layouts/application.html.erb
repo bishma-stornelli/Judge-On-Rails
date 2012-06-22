@@ -8,6 +8,27 @@
         <%= csrf_meta_tags %>
     </head>
     <body>
+        <nav id="users_menu">
+            <% if signed_in? %>
+                <%= link_to "My account" , user_path(current_user) %>
+                <%= link_to "Sign out" , signout_path, method: "delete" %>
+            <% else %>
+                <%= link_to "Sign up" , new_user_path %>
+                <%= link_to "Sign in" , signin_path %>
+            <% end %>
+        </nav>
+        <nav id="main_menu">
+             <%= link_to "Problems" , problems_path %>
+             
+            <% if signed_in? %>
+                <%= link_to "Marked problems" , marked_problems_path %>
+                <% if current_user.admin? %>
+                    <%= link_to "Post a new problem", new_problem_path %>
+                    <%= link_to "List users", users_path %>
+                <% end %>
+            <% end %>
+        </nav>
+            
         <div class="alert">
             <% flash.each do |key, value| %>
             <div class="alert-<%= key %>">

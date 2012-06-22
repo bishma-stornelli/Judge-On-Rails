@@ -11,7 +11,7 @@
     <% @problems.each do |problem| %>
     <tr>
         <td><%= problem.id %></td>
-        <td id="problem_<%= problem.id%>"> <%= problem_status problem %> </td>
+        <td id="problem_<%= problem.id%>"> <%= problem_status_display problem %> </td>
         <td><%= link_to problem.name , problem %></td>
         <td><%= problem.code %></td>
     </tr>

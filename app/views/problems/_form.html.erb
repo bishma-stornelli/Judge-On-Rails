@@ -18,8 +18,12 @@
     <%= f.text_area :output_format %>
   </div>
   <div class="field">
-    <%= f.label :solution_file %><br />
-    <%= f.file_field :solution_file %>
+    <%= f.label :input %><br />
+    <%= f.file_field :input %>
+  </div>
+  <div class="field">
+    <%= f.label :solution %><br />
+    <%= f.file_field :solution %>
   </div>
   <div class="actions">
     <%= f.submit %>

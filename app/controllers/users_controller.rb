@@ -61,12 +61,18 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    # If the user doesn't fill the email_confirmation field and he didn't change
+    # the email field then it should pass the confirmation
+    old_email_confirmation = params[:user][:email_confirmation]
+    if (params[:user][:email_confirmation] || "").empty? && @user.email == params[:user][:email]
+      params[:user][:email_confirmation] = @user.email
+    end
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
+        @user.email_confirmation =  old_email_confirmation
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

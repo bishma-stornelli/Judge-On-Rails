@@ -10,6 +10,14 @@
   <%= @user.email %>
 </p>
 
+<% if signed_in? && current_user.admin? %>
+<p>
+  <b>Admin:</b>
+  <%= check_box_tag "", @user.admin, @user.admin , disabled: true %>
+</p>
+<% end %>
+
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

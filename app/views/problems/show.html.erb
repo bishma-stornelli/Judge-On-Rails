@@ -32,9 +32,7 @@
                 <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
             </p>
             <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
-                <%= form_for(:marked_problem, url: marked_problem_path(@problem.id), remote: true, method: :put) do |f| %>
-                    <%= f.submit "Solve" %>
-                <% end %>
+                <%= render 'marked_problems/solve' , problem: @problem %>
             <% end %>
         <% else %>
             <%= render 'marked_problems/mark' , problem: @problem %>

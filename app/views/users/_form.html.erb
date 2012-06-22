@@ -21,6 +21,12 @@
     <%= f.label :password_confirmation %><br />
     <%= f.text_field :password_confirmation %>
   </div>
+  <% if signed_in? && current_user.admin? %>
+      <div class="field">
+        <%= f.label :admin %><br />
+        <%= f.check_box :admin %>
+      </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

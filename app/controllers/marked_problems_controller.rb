@@ -1,8 +1,6 @@
-
 class MarkedProblemsController < ApplicationController
   # Limiting functionallity with cancan
   load_and_authorize_resource except: :update
-  
   def index
     @problems = current_user.problems.all
     respond_to do |format|
@@ -18,27 +16,35 @@ class MarkedProblemsController < ApplicationController
         format.js
       end
     else
-      
+
     end
   end
-  
+
   def update
-    @marked_problem = MarkedProblem.find_by_user_id_and_problem_id(current_user.id , params[:id])
+    @marked_problem = MarkedProblem.find_by_user_id_and_problem_id(current_user.id , params[:marked_problem][:problem_id])
     # This must to be manual since the marked_problem is not being found by id
     authorize! :update, @marked_problem
-    # Aqui manejo el archivo que sube el usuario y lo corro para ver si esta bueno o malo
-    # Corro el programa y suponiendo que me devuelve una variable status
-    status = 0
+    problem = @marked_problem.problem
+    path = "#{Rails.root}/public/#{rand()}"
+    File.open(path, "w+") { |f| f.write(params[:marked_problem][:solution].read) }
+    result = `ruby #{path} < #{problem.input.path}`
+    File.delete(path)
+    solution = File.new(problem.solution.path).read
     
+    if result == solution
+      status = MarkedProblem::STATUS_SOLVED
+    else
+      status = MarkedProblem::STATUS_WRONG
+    end
+
     respond_to do |format|
       if @marked_problem.update_attributes(status: status)
-        flash.now[:success] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
-        flash.now[:error] = "Wrong answer! Try again!" if status == MarkedProblem::STATUS_WRONG
-        format.js
+        flash[:success] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
+        flash[:error] = "Wrong answer! Try again!" if status == MarkedProblem::STATUS_WRONG
       else
-        flash.now[:error] = "An error occur while proccesing your answer. Please try again later."
-        format.js
+        flash[:error] = "An error occur while proccesing your answer. Please try again later."
       end
+      format.html { redirect_to @marked_problem.problem }
     end
   end
 end

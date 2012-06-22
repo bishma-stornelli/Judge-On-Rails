@@ -60,10 +60,6 @@ module OJOR
     config.assets.version = '1.0'
     
     # Setting where to store files using paperclip
-    config.paperclip_defaults = {
-      :storage => :fog, 
-      :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, 
-      :fog_directory => "", 
-      :fog_host => "localhost:3000"}
+    #config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}
   end
 end
