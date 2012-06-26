@@ -1,43 +1,55 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Code:</b>
-  <%= @problem.code %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @problem.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @problem.description %>
-</p>
-
-<p>
-  <b>Input format:</b>
-  <%= @problem.input_format %>
-</p>
-
-<p>
-  <b>Output format:</b>
-  <%= @problem.output_format %>
-</p>
-
-<% if signed_in? %>
-    <div id="problem_status">
-        <% if has_marked? @problem %>
-            <p><b>Status:</b>
-                <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
-            </p>
-            <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
-                <%= render 'marked_problems/solve' , problem: @problem %>
-            <% end %>
-        <% else %>
-            <%= render 'marked_problems/mark' , problem: @problem %>
-        <% end %>
+<div class="post">
+    <h2 class="title">
+      <%= @problem.id %>. <%= @problem.name %> 
+    </h2>
+    
+    <div class="entry">
+        <p>Problem code: <%= @problem.code %></p>
+        <p>
+          <%= @problem.description %>
+        </p>
     </div>
-<% end %>
-
-<%= link_to 'Back', problems_path %>
+</div>
+<div class="post">
+        <h2 class="title">
+            Input format
+        </h2>
+        <div class="entry">
+            <p><%= @problem.input_format %></p>
+        </div>
+</div>
+<div class="post">
+        <h2 class="title">
+            Output format
+        </h2>
+        <div class="entry">
+            <p><%= @problem.output_format %></p>
+        </div>
+</div>
+<div class="post">
+    <% if signed_in? %>
+        <div id="problem_status">
+            <% if has_marked? @problem %>
+                <p><b>Status:</b>
+                    <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
+                </p>
+                <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
+                    <%= render 'marked_problems/solve' , problem: @problem %>
+                <% end %>
+            <% else %>
+                <%= render 'marked_problems/mark' , problem: @problem %>
+            <% end %>
+        </div>
+    <% end %>
+    
+    <div class="byline">
+        <p class="meta">
+            
+        </p>
+        <p class="links">
+            <%= "    |    " %>
+            <%= link_to 'Back', problems_path %>
+        </p>
+    </div>
+    
+</div>

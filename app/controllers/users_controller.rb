@@ -48,7 +48,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        flash[:notice] = 'User was successfully created.'
+        format.html { redirect_to @user }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -69,7 +70,8 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        flash[:notice] = 'User was successfully created.'
+        format.html { redirect_to @user }
         format.json { head :no_content }
       else
         @user.email_confirmation =  old_email_confirmation

@@ -1,4 +1,3 @@
-= form_for( :marked_problems , url: marked_problems_path, remote: true) do |f|
+= form_for( :marked_problems , url: marked_problems_path, remote: true, html: {id: "solve_later_#{problem.id}"}) do |f|
   = f.hidden_field :problem_id , value: problem.id
-  = f.submit "Mark"
-  
+  = link_to 'Solve later?', '#', {:remote => true, :onclick=>"$('form#solve_later_#{problem.id}').submit()"}

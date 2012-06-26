@@ -17,5 +17,7 @@ class Problem < ActiveRecord::Base
   validates :description, presence: true
   validates :input_format, presence: true
   validates :output_format, presence: true
+  validates :input, :attachment_presence => true
+  validates :solution, :attachment_presence => true
 
 end

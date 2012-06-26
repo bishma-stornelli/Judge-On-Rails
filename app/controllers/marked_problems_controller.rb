@@ -11,7 +11,6 @@ class MarkedProblemsController < ApplicationController
 
   def create
     if @marked_problem = current_user.marked_problems.create(params[:marked_problems])
-      flash[:success]= "String de prueba"
       respond_to do |format|
         format.js
       end
@@ -39,8 +38,11 @@ class MarkedProblemsController < ApplicationController
 
     respond_to do |format|
       if @marked_problem.update_attributes(status: status)
-        flash[:success] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
-        flash[:error] = "Wrong answer! Try again!" if status == MarkedProblem::STATUS_WRONG
+        flash[:notice] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
+        if status == MarkedProblem::STATUS_WRONG
+          flash[:error] = "Wrong answer! Try again!" 
+          flash[:output] = "The answer of your program was: \n#{result}".html_safe
+        end 
       else
         flash[:error] = "An error occur while proccesing your answer. Please try again later."
       end
