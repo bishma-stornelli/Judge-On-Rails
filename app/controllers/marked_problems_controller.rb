@@ -14,8 +14,6 @@ class MarkedProblemsController < ApplicationController
       respond_to do |format|
         format.js
       end
-    else
-
     end
   end
 
@@ -26,27 +24,26 @@ class MarkedProblemsController < ApplicationController
     problem = @marked_problem.problem
     path = "#{Rails.root}/public/#{rand()}"
     File.open(path, "w+") { |f| f.write(params[:marked_problem][:solution].read) }
-    result = `ruby #{path} < #{problem.input.path}`
-    File.delete(path)
+    @output = `ruby #{path} < #{problem.input.path}`
     solution = File.new(problem.solution.path).read
     
-    if result == solution
+    if @output == solution
       status = MarkedProblem::STATUS_SOLVED
     else
       status = MarkedProblem::STATUS_WRONG
     end
+    File.delete(path)
 
     respond_to do |format|
       if @marked_problem.update_attributes(status: status)
-        flash[:notice] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
+        flash.now[:notice] = "Congratulations! Your program is correct!" if status == MarkedProblem::STATUS_SOLVED
         if status == MarkedProblem::STATUS_WRONG
-          flash[:error] = "Wrong answer! Try again!" 
-          flash[:output] = "The answer of your program was: \n#{result}".html_safe
+          flash.now[:error] = "Wrong answer! Try again!"
         end 
       else
-        flash[:error] = "An error occur while proccesing your answer. Please try again later."
+        flash.now[:error] = "An error occur while proccesing your answer. Please try again later."
       end
-      format.html { redirect_to @marked_problem.problem }
+      format.js
     end
   end
 end

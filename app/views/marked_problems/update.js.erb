@@ -1,5 +1,21 @@
+
+$("#problem_<%= @marked_problem.problem.id %>_mark_form").hide("fast");
+
+$("#problem_<%= @marked_problem.problem.id %>_solve_form").show("slow");
+
 $("#problem_<%= @marked_problem.problem.id %>_status").html("<%= @marked_problem.get_status_display %>");
 
-<% flash.each do |key,value| %>
-$(".alert").html("<%= value %>");
+
+<%= (render_flash flash).gsub("<script>","").gsub("</script>","") %>
+
+<% if @marked_problem.status == MarkedProblem::STATUS_WRONG %>
+$("#code").show("slow", function(){
+$("#code").html("<h2 class='title'>Your output was: </h2><code><%= @output.gsub(/\r?\n/, "<BR/>") %></code>");
+$.scrollTo("#code",800);
+});
+<% else %>
+$("#code").hide("slow");
+$("#solve_form").hide("slow");
 <% end %>
+
+

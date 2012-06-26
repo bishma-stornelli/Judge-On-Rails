@@ -48,9 +48,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to @user }
-        format.json { render json: @user, status: :created, location: @user }
+        if current_user && current_user.admin?
+          flash[:notice] = 'User was successfully created.'
+          format.html { redirect_to @user }
+          format.json { render json: @user, status: :created, location: @user }
+        else
+          flash[:notice] = "You've signed up successfully. Please sign in to resolve problems."
+          format.html { redirect_to signin_path }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }

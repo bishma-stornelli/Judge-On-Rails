@@ -420,9 +420,24 @@ a:hover {
     float: right;
     height: 26px;
     border: none;
-    background: #2E550E;
+    background: #6e9e2d;
     color: #FFFFFF;
+    cursor: pointer; 
 }
+
+.input-file {
+border: 1px solid #777777; 
+background: #6e9e2d; 
+color: white; 
+font: bold 11px 'Trebuchet MS'; 
+padding: 4px; 
+cursor: pointer; 
+-moz-border-radius: 4px; 
+-webkit-border-radius: 4px;
+}
+
+
+/* The flash */
 
 .field_with_errors {
   padding: 2px;
@@ -457,18 +472,18 @@ a:hover {
 } 
 
 .alert {
-  //overflow: hidden;
+  overflow: hidden;
   z-index: 999;
   width: 100%;
   text-align: center;
-  //position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: rgb(161,195,0);
   background-color: rgba(161,195,0,.8);
   //height: 0;
   color: #fff;
-  padding: 9px 0;
+  //padding: 9px 0;
   text-shadow: rgba(99,130,0,.75) 1px 1px 1px;
   font-size: 21px;
   

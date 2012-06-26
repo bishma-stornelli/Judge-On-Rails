@@ -29,15 +29,9 @@
                 <div id="page-bgtop">
                     <div id="page-bgbtm">
                         <div id="content">
-                            <% if !flash.empty? %>
                             <div class="alert">
-                                <% flash.each do |key, value| %>
-                                    <div class="alert-<%= key %>">
-                                        <%= value %>
-                                    </div>
-                                <% end %>
+                                <%= (render_flash flash).html_safe %>
                             </div>
-                            <% end %>
                             <%= yield %>
                         </div>
                         <div id="sidebar">

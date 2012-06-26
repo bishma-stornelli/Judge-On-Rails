@@ -1,55 +1,65 @@
 <div class="post">
-    <h2 class="title">
-      <%= @problem.id %>. <%= @problem.name %> 
-    </h2>
-    
+    <h2 class="title"> <%= @problem.id %>. <%= @problem.name %> </h2>
+
     <div class="entry">
-        <p>Problem code: <%= @problem.code %></p>
         <p>
-          <%= @problem.description %>
+            Problem code: <%= @problem.code %>
+        </p>
+        <p>
+            <%= simple_format @problem.description %>
+        </p>
+    </div>
+    <div class="byline">
+        <p class="meta">
+            <%= "Created on #{@problem.created_at}" %>
         </p>
     </div>
 </div>
 <div class="post">
-        <h2 class="title">
-            Input format
-        </h2>
-        <div class="entry">
-            <p><%= @problem.input_format %></p>
-        </div>
+    <h2 class="title"> Input format </h2>
+    <div class="entry">
+        <p>
+            <%= simple_format @problem.input_format %>
+        </p>
+    </div>
 </div>
 <div class="post">
-        <h2 class="title">
-            Output format
-        </h2>
-        <div class="entry">
-            <p><%= @problem.output_format %></p>
-        </div>
+    <h2 class="title"> Output format </h2>
+    <div class="entry">
+        <p>
+            <%= simple_format @problem.output_format %>
+        </p>
+    </div>
 </div>
+<% if signed_in? %>
 <div class="post">
-    <% if signed_in? %>
-        <div id="problem_status">
-            <% if has_marked? @problem %>
-                <p><b>Status:</b>
-                    <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
-                </p>
-                <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
-                    <%= render 'marked_problems/solve' , problem: @problem %>
-                <% end %>
-            <% else %>
-                <%= render 'marked_problems/mark' , problem: @problem %>
+    <div id="problem_status">
+        <div id="problem_<%= @problem.id %>_solve_form" 
+            <% if ! has_marked? @problem %>style="display:none"<%end%>>
+        <p>
+            <b>Status:</b>
+            <span id="problem_<%= @problem.id %>_status"><%= problem_status_display @problem %></span>
+        </p>
+            <% if problem_status( @problem ) != MarkedProblem::STATUS_SOLVED  %>
+                <%= render 'marked_problems/solve' , problem: @problem %>
             <% end %>
         </div>
-    <% end %>
-    
+        <div id="problem_<%= @problem.id %>_mark_form" 
+            <% if has_marked? @problem %>style="display:none"<%end%>>
+            <%= render 'marked_problems/mark' , problem: @problem %>
+        </div>
+    </div>
+
     <div class="byline">
         <p class="meta">
-            
+
         </p>
         <p class="links">
-            <%= "    |    " %>
             <%= link_to 'Back', problems_path %>
         </p>
     </div>
-    
+
 </div>
+<div class="post entry" id="code" style="display: none;">
+</div>
+<% end %>

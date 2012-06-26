@@ -56,3 +56,9 @@ gem 'cancan'
 # For easy upload files
 gem 'paperclip'
 
+# For upload files using ajax
+gem "remotipart", "~> 1.0"
+
+# Use thin as server instead of WebRick
+gem "thin"
+

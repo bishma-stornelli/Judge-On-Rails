@@ -1,6 +1,5 @@
 class Ability
   include CanCan::Ability
-
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
@@ -24,14 +23,14 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    
-    if user && user.admin?
-      can [:create, :update, :delete] , Problem
-      can :manage, User
-    end
+
     if user
       can [:create,:read,:update], MarkedProblem
       can [:show, :update] , User, id: user.id
+      if user.admin?
+        can [:create, :update, :destroy] , Problem
+        can :manage, User
+      end
     end
   end
 end

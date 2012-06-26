@@ -19,4 +19,8 @@ module SessionsHelper
   def sign_out
     self.current_user = session[:user_id] = nil
   end
+  
+  def signin_path
+    "/sessions/new"
+  end
 end

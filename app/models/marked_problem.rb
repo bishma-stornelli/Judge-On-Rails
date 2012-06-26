@@ -10,7 +10,8 @@ class MarkedProblem < ActiveRecord::Base
   STATUS_PENDING = 2
   STATUS_OPTIONS =  { STATUS_SOLVED => 'Solved', STATUS_WRONG => 'Wrong answer', STATUS_PENDING => 'Pending' }
   validates :status, inclusion: {in: STATUS_OPTIONS.map {|key,value| key}}
-  #validates [:user_id, :problem_id], uniqueness: true
+  validates :user_id, :problem_id, presence: true
+  validates :user_id, uniqueness: {scope: :problem_id }
   
   # CALLBACKS
   after_initialize :default_values
