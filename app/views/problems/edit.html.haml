@@ -1,0 +1,10 @@
+.post
+    %h2.title Edit Problem
+    .entry
+        = render 'form'
+    .byline
+        %p.meta
+        %p.links
+            = link_to 'Show', @problem
+            = "    |    "
+            = link_to 'Back', problems_path

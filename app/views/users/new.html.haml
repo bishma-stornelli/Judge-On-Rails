@@ -1,0 +1,9 @@
+.post
+    %h2.title New User
+    .entry
+        = render 'form'
+    .byline
+        %p.meta
+        %p.links
+            - if signed_in? && current_user.admin?
+                = link_to 'Back', users_path

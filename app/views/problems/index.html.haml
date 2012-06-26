@@ -1,0 +1,31 @@
+.post
+    %h2.title Problems List
+    .entry
+        - if @problems.empty?
+            %p The problems pool is empty.
+        - else
+            %table
+                %tr
+                    %th ID
+                    - if signed_in?
+                        %th Status
+                    %th Name
+                    %th Code
+                    - if signed_in? && current_user.admin?
+                        %th
+                        %th
+                - @problems.each do |problem|
+                    %tr
+                        %td= problem.id
+                        - if signed_in?
+                            %td{id: "problem_#{problem.id}_status"}
+                                - if has_marked? problem
+                                    = problem_status_display problem
+                                - else
+                                    = render 'marked_problems/mark' , problem: problem
+                                    
+                        %td= link_to problem.name , problem
+                        %td= problem.code
+                        - if signed_in? && current_user.admin?
+                            %td= link_to "Edit", edit_problem_path(problem)
+                            %td= link_to "Delete", problem , { method: :delete, confirm: "Are you sure?"}

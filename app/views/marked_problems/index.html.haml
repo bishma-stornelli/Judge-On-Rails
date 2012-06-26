@@ -1,0 +1,18 @@
+.post
+    %h2.title Marked Problems
+    .entry
+        - if @problems.empty?
+            %p You don't have any pending problem to solve.
+        - else
+            %table
+                %tr
+                    %th ID
+                    %th Status
+                    %th Name
+                    %th Code
+                - @problems.each do |problem|
+                    %tr
+                        %td= problem.id
+                        %td{id: "problem_#{problem.id}_status"}= problem_status_display problem
+                        %td= link_to problem.name , problem
+                        %td= problem.code

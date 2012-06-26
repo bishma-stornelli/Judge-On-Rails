@@ -1,0 +1,15 @@
+= form_for(:session, url: sessions_path) do |f|
+  = f.error_messages
+  %table
+    %tr
+      %td= f.label :username
+    %tr
+      %td= f.text_field :username
+    %tr
+      %td= f.label :password
+    %tr
+      %td= f.password_field :password
+    %tr
+      %td{:colspan => 2}
+        = link_to "New User?" , new_user_path
+        = f.submit "Sign in", class: "submit"
